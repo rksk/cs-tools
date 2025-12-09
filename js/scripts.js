@@ -6,7 +6,10 @@ $(document).ready(function(){
     $('#btnUrlDecode').click(function (){urlDecode();});
     $('#btnJsonFormat').click(function (){jsonFormat();});
     $('#btnXmlFormat').click(function (){xmlFormat();});
+    $('#btnSqlFormat').click(function (){sqlFormat();});
 });
+
+var zlib = require('zlib');
 
 function base64encode(){
     get('preB64OutputCode').innerText = btoa(get('textAreaB64Input').value);
@@ -111,6 +114,56 @@ function xmlFormat(sourceXml){
         showError("Error: Invalid XML Payload");
     }
 };
+
+function sqlFormat() {
+    // try {
+        get('preSqlOutputCode').innerText = '';
+        const input = get('textAreaSqlInput').value;
+        if (!input.trim()) {
+            return;
+        }
+
+        // Keywords that should start on a new line
+        const keywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'INNER JOIN', 'OUTER JOIN', 'ON', 'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'OFFSET', 'UNION', 'AS', 'CASE', 'WHEN', 'THEN', 'END', 'ELSE'];
+        
+        // Normalize whitespace to a single space
+        let formattedSql = input.replace(/\s+/g, ' ').trim();
+        
+        // Replace main keywords with a newline and uppercase them
+        keywords.forEach(keyword => {
+            const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+            formattedSql = formattedSql.replace(regex, `\n${keyword.toUpperCase()}`);
+        });
+        
+        // Add indentation for multiple WHERE conditions
+        // formattedSql = formattedSql.replace(/(WHERE\s)(.*)/gi, (match, p1, p2) => {
+        //     // Split the part after 'WHERE' by 'AND' or 'OR'
+        //     const conditions = p2.split(/\b(AND|OR)\b/i);
+        //     let result = p1 + conditions[0];
+            
+        //     // Add a newline and an indent for each subsequent condition
+        //     for (let i = 1; i < conditions.length; i += 2) {
+        //     result += `\n    ${conditions[i].toUpperCase()} ${conditions[i + 1].trim()}`;
+        //     }
+        //     return result;
+        // });
+
+        // Indent after commas, including in nested queries
+        formattedSql = formattedSql.replace(/,\s*/g, ',\n  ');
+        
+        // Add a new line and indentation for nested FROM clauses
+        formattedSql = formattedSql.replace(/\bFROM\s+\(/gi, (match) => {
+            return `\nFROM (\n  `;
+        });
+        
+        // Clean up extra spaces around parentheses and add new lines for better readability
+        formattedSql = formattedSql.replace(/\)\s*(\S)/g, ') \n  $1');
+
+        get('preSqlOutputCode').innerText = formattedSql.trim();
+    // } catch (error) {
+    //     showError("Error: Invalid SQL");
+    // }
+}
 
 function get(id){
     return document.getElementById(id);

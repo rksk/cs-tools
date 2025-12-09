@@ -24,6 +24,7 @@
                         <a class="nav-link" id="v-pills-url-tab" data-toggle="pill" href="#url" role="tab" aria-controls="url" aria-selected="false">URL Encode/Decode</a>
                         <a class="nav-link" id="v-pills-json-tab" data-toggle="pill" href="#json" role="tab" aria-controls="json" aria-selected="false">JSON Formatter</a>
                         <a class="nav-link" id="v-pills-xml-tab" data-toggle="pill" href="#xml" role="tab" aria-controls="xml" aria-selected="false">XML Formatter</a>
+                        <a class="nav-link" id="v-pills-sql-tab" data-toggle="pill" href="#sql" role="tab" aria-controls="sql" aria-selected="false">SQL Formatter</a>
                     </div>
                 </div>
             </div>
@@ -260,6 +261,49 @@
                         <div class="col-md-12">
                             <pre id="preXmlOutput">
                                 <code id="preXmlOutputCode" class="language-xml">
+</code>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="sql" role="tabpanel" aria-labelledby="v-pills-sql-tab">
+                <div class="container-fluid">
+                    <div>
+                        <div class="col-md-12" style="text-align: center;">
+                            <h1>SQL Formatter</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Input
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea id="textAreaSqlInput" style="width: 100%; height: fit-content;"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-10"></div>
+                        <div class="col-md-1" >
+                            <button type="button" class="btn btn-secondary" id="btnSqlFormat" style="float: right;"> Format </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Output
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <pre id="preSqlOutput">
+                                <code id="preSqlOutputCode" class="language-sql">
 </code>
                             </pre>
                         </div>

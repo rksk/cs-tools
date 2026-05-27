@@ -60,7 +60,7 @@ interface AppLayoutProps {
 export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
   const location = useLocation();
   const mainContentRef = useRef<HTMLDivElement>(null);
-  const { isLoading: isAuthLoading } = useAsgardeo();
+  const { isLoading: isAuthLoading, isSignedIn } = useAsgardeo();
   const { isErrorPageDisplayed } = useErrorPageContext();
 
   useEffect(() => {
@@ -123,10 +123,11 @@ export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
             <Header
               onToggleSidebar={shellActions.toggleSidebar}
               collapsed={shellState.sidebarCollapsed}
+              hideProjectControls={!isSignedIn || !hasInitialized}
             />
           </AppShell.Navbar>
 
-          {!isErrorPageDisplayed && (
+          {hasInitialized && isSignedIn && !isErrorPageDisplayed && (
             <AppShell.Sidebar>
               <CsmSideBar
                 collapsed={shellState.sidebarCollapsed}

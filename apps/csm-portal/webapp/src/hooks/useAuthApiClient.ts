@@ -16,24 +16,18 @@
 
 import { useAsgardeo } from "@asgardeo/react";
 
-// A custom hook that automatically fetches a fresh ID Token from Asgardeo.
+// Fetch wrapper that attaches a fresh Asgardeo access token as the bearer.
+// The Choreo gateway validates the access token and forwards it upstream as
+// `x-jwt-assertion`, which csm-portal-backend reads in its auth middleware.
 export function useAuthApiClient() {
-  const { getIdToken } = useAsgardeo();
+  const { getAccessToken } = useAsgardeo();
 
-  /**
-   * Builds request headers with auth and payload defaults.
-   *
-   * @param {RequestInit | undefined} options - Request init options.
-   * @param {string} token - ID token used as bearer and user token header.
-   * @returns {Headers} Final headers for request execution.
-   */
   const buildRequestHeaders = (
     options: RequestInit | undefined,
     token: string,
   ): Headers => {
     const headers = new Headers(options?.headers);
     headers.set("Authorization", `Bearer ${token}`);
-    headers.set("x-user-id-token", token);
     if (!headers.has("Accept")) {
       headers.set("Accept", "application/json");
     }
@@ -63,9 +57,9 @@ export function useAuthApiClient() {
     input: RequestInfo | URL,
     options?: RequestInit,
   ): Promise<Response> => {
-    const token = await getIdToken();
+    const token = await getAccessToken();
     if (!token) {
-      throw new Error("Unable to retrieve ID token");
+      throw new Error("Unable to retrieve access token");
     }
 
     return fetch(input, {

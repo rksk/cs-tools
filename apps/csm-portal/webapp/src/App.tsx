@@ -19,6 +19,7 @@ import { Navigate, Route, Routes } from "react-router";
 import AuthGuard from "@layouts/AuthGuard";
 import ErrorLayout from "@layouts/ErrorLayout";
 import CsmComingSoonPage from "@features/csm-coming-soon/pages/CsmComingSoonPage";
+import CsmAdminLayout from "@features/csm-admin/pages/CsmAdminLayout";
 import CsmUsersPage from "@features/csm-users/pages/CsmUsersPage";
 import CsmAccountsPage from "@features/csm-accounts/pages/CsmAccountsPage";
 import CsmProjectsPage from "@features/csm-projects/pages/CsmProjectsPage";
@@ -63,15 +64,49 @@ export default function App(): JSX.Element {
               />
 
               <Route element={<AuthGuard />}>
-                <Route path="/" element={<Navigate to="/users" replace />} />
+                <Route path="/" element={<Navigate to="/accounts" replace />} />
 
                 {/* BFF-backed pages (entity-service search endpoints) */}
-                <Route path="users" element={<CsmUsersPage />} />
                 <Route path="accounts" element={<CsmAccountsPage />} />
                 <Route path="projects" element={<CsmProjectsPage />} />
 
-                {/* WIP placeholders. Routes exist so the sidebar feels real;
-                    pages will be implemented once their BFF wiring lands. */}
+                {/* Administration — Users tab is real, others are WIP */}
+                <Route path="admin" element={<CsmAdminLayout />}>
+                  <Route index element={<Navigate to="/admin/users" replace />} />
+                  <Route path="users" element={<CsmUsersPage />} />
+                  <Route
+                    path="roles"
+                    element={
+                      <CsmComingSoonPage
+                        title="Roles"
+                        description="Role-based access control: define roles and their permission sets."
+                        blockedOn="csm-portal/backend roles endpoints"
+                      />
+                    }
+                  />
+                  <Route
+                    path="groups"
+                    element={
+                      <CsmComingSoonPage
+                        title="Groups"
+                        description="User groups for bulk role assignment and access control."
+                        blockedOn="csm-portal/backend groups endpoints"
+                      />
+                    }
+                  />
+                  <Route
+                    path="permissions"
+                    element={
+                      <CsmComingSoonPage
+                        title="Permissions"
+                        description="Fine-grained permission catalog and assignment view."
+                        blockedOn="csm-portal/backend permissions endpoints"
+                      />
+                    }
+                  />
+                </Route>
+
+                {/* WIP placeholders for top-level features awaiting BFF support */}
                 <Route
                   path="dashboard"
                   element={
@@ -139,16 +174,6 @@ export default function App(): JSX.Element {
                       title="Time cards"
                       description="Engineer time-tracking entries against cases, with approval flow."
                       blockedOn="csm-portal/backend time-cards endpoints"
-                    />
-                  }
-                />
-                <Route
-                  path="admin/*"
-                  element={
-                    <CsmComingSoonPage
-                      title="Administration"
-                      description="Users, roles, groups, and permissions management."
-                      blockedOn="csm-portal/backend admin endpoints"
                     />
                   }
                 />

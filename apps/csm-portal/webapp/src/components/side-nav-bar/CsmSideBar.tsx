@@ -26,7 +26,6 @@ import {
   RefreshCw,
   Settings,
   Shield,
-  User,
 } from "@wso2/oxygen-ui-icons-react";
 import { type ComponentType, type JSX } from "react";
 import { Link as NavigateLink, useLocation } from "react-router";
@@ -47,9 +46,9 @@ interface CsmNavItem {
 }
 
 const CSM_NAV_ITEMS: CsmNavItem[] = [
-  { id: "users", label: "Users", path: "/users", icon: User },
   { id: "accounts", label: "Accounts", path: "/accounts", icon: Building },
   { id: "projects", label: "Projects", path: "/projects", icon: FolderOpen },
+  { id: "admin", label: "Administration", path: "/admin", icon: Settings },
   { id: "dashboard", label: "Dashboard", path: "/dashboard", icon: ChartColumn, wip: true },
   { id: "cases", label: "Cases", path: "/cases", icon: Headset, wip: true },
   { id: "operations", label: "Operations", path: "/operations", icon: Cog, wip: true },
@@ -57,17 +56,16 @@ const CSM_NAV_ITEMS: CsmNavItem[] = [
   { id: "updates", label: "Updates", path: "/updates", icon: RefreshCw, wip: true },
   { id: "security-center", label: "Security center", path: "/security-center", icon: Shield, wip: true },
   { id: "time-cards", label: "Time cards", path: "/time-cards", icon: Clock, wip: true },
-  { id: "admin", label: "Administration", path: "/admin", icon: Settings, wip: true },
 ];
 
 function pickActiveId(pathname: string): string {
-  if (pathname === "/" || pathname === "") return "users";
+  if (pathname === "/" || pathname === "") return "accounts";
   for (const item of CSM_NAV_ITEMS) {
     if (pathname === item.path || pathname.startsWith(`${item.path}/`)) {
       return item.id;
     }
   }
-  return "users";
+  return "accounts";
 }
 
 export default function CsmSideBar({

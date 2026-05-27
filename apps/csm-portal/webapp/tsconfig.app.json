@@ -10,56 +10,16 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@api/*": ["src/api/*"],
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
-      "@case-details": ["src/features/support/components/case-details/header"],
-      "@case-details/*": [
-        "src/features/support/components/case-details/header/*"
-      ],
-      "@case-details-attachments": [
-        "src/features/support/components/case-details/attachments-tab"
-      ],
-      "@case-details-attachments/*": [
-        "src/features/support/components/case-details/attachments-tab/*"
-      ],
-      "@case-details-details": [
-        "src/features/support/components/case-details/details-tab"
-      ],
-      "@case-details-details/*": [
-        "src/features/support/components/case-details/details-tab/*"
-      ],
-      "@case-details-activity": [
-        "src/features/support/components/case-details/activity-tab"
-      ],
-      "@case-details-activity/*": [
-        "src/features/support/components/case-details/activity-tab/*"
-      ],
-      "@case-details-calls": [
-        "src/features/support/components/case-details/calls-tab"
-      ],
-      "@case-details-calls/*": [
-        "src/features/support/components/case-details/calls-tab/*"
-      ],
       "@config/*": ["src/config/*"],
+      "@constants/*": ["src/constants/*"],
       "@context/*": ["src/context/*"],
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
       "@features/*": ["src/features/*"],
       "@providers/*": ["src/providers/*"],
-      "@utils/*": ["src/utils/*"],
-      "@time-tracking": [
-        "src/features/project-details/components/time-tracking"
-      ],
-      "@time-tracking/*": [
-        "src/features/project-details/components/time-tracking/*"
-      ],
-      "@deployments": ["src/features/project-details/components/deployments"],
-      "@deployments/*": [
-        "src/features/project-details/components/deployments/*"
-      ],
-      "@update-cards/*": ["src/features/updates/components/update-cards/*"],
-      "@constants/*": ["src/constants/*"]
+      "@utils/*": ["src/utils/*"]
     },
 
     /* Bundler mode */

@@ -70,12 +70,9 @@ export default function CsmUsersPage(): JSX.Element {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      <Box>
-        <Typography variant="h5">Users</Typography>
-        <Typography variant="body2" color="text.secondary">
-          Search across username and email (case-insensitive).
-        </Typography>
-      </Box>
+      <Typography variant="body2" color="text.secondary">
+        Search across username and email (case-insensitive).
+      </Typography>
 
       <TextField
         size="small"

@@ -23,6 +23,7 @@ import CsmAdminLayout from "@features/csm-admin/pages/CsmAdminLayout";
 import CsmUsersPage from "@features/csm-users/pages/CsmUsersPage";
 import CsmAccountsPage from "@features/csm-accounts/pages/CsmAccountsPage";
 import CsmProjectsPage from "@features/csm-projects/pages/CsmProjectsPage";
+import CsmUpdatesPage from "@features/updates/pages/CsmUpdatesPage";
 import Error401Page from "@components/error/Error401Page";
 import Error403Page from "@components/error/Error403Page";
 import Error404Page from "@components/error/Error404Page";
@@ -147,16 +148,7 @@ export default function App(): JSX.Element {
                     />
                   }
                 />
-                <Route
-                  path="updates"
-                  element={
-                    <CsmComingSoonPage
-                      title="Updates"
-                      description="Pending product updates across customers."
-                      blockedOn="FE wiring for csm-portal/backend /updates endpoints"
-                    />
-                  }
-                />
+                <Route path="updates" element={<CsmUpdatesPage />} />
                 <Route
                   path="security-center"
                   element={

@@ -19,43 +19,13 @@ import {
   ColorSchemeToggle,
   Divider,
   Header as HeaderUI,
-  UserMenu,
 } from "@wso2/oxygen-ui";
-import { LogOut } from "@wso2/oxygen-ui-icons-react";
 import type { JSX } from "react";
 import { useAsgardeo } from "@asgardeo/react";
-import { useLogger } from "@hooks/useLogger";
-
-interface AsgardeoUserClaims {
-  name?: string;
-  given_name?: string;
-  family_name?: string;
-  email?: string;
-  username?: string;
-  sub?: string;
-}
+import UserProfile from "@components/header/UserProfile";
 
 export default function Actions(): JSX.Element {
-  const { signOut, isSignedIn, user } = useAsgardeo();
-  const logger = useLogger();
-
-  const handleSignOut = async () => {
-    window.dispatchEvent(new CustomEvent("app:signing-out"));
-    try {
-      await signOut();
-    } catch (err) {
-      logger.error("Failed to sign out", err);
-    }
-  };
-
-  const claims = (user ?? {}) as AsgardeoUserClaims;
-  const fullName =
-    claims.name ||
-    [claims.given_name, claims.family_name].filter(Boolean).join(" ").trim() ||
-    claims.username ||
-    claims.email ||
-    "Signed in";
-  const email = claims.email ?? "";
+  const { isSignedIn } = useAsgardeo();
 
   return (
     <HeaderUI.Actions>
@@ -69,20 +39,7 @@ export default function Actions(): JSX.Element {
           visibility: isSignedIn ? "visible" : "hidden",
         }}
       />
-      {isSignedIn ? (
-        <UserMenu>
-          <UserMenu.Trigger name={fullName} />
-          <UserMenu.Header name={fullName} email={email} />
-          <UserMenu.Divider />
-          <UserMenu.Logout
-            icon={<LogOut size={16} />}
-            label="Sign out"
-            onClick={handleSignOut}
-          />
-        </UserMenu>
-      ) : (
-        <Box sx={{ width: 40, height: 40 }} />
-      )}
+      {isSignedIn ? <UserProfile /> : <Box sx={{ width: 40, height: 40 }} />}
     </HeaderUI.Actions>
   );
 }
